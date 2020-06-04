@@ -65,16 +65,25 @@ def print_mimic(mimic_dict, start_word):
         - Randomly select a new word from the next-list
         - Repeat this process 200 times
     """
+    _next = start_word
+
     for i in range(200):
+        word = _next
         print(word + " " + str(i))
-        _next = mimic_dict[word]
+        _next = random.choice(mimic_dict[word])
         if not _next:
-            _next = mimic_dict['']
-        word = random.choice(_next)
+            _next = mimic_dict[start_word]
     pass
 
+    # a = ""
+    # if a:
+    #     print(a)
+    # if not a:
+    #     print('false')
 
 # Provided main(), calls mimic_dict() and print_mimic()
+
+
 def main():
     if len(sys.argv) != 2:
         print('usage: python mimic.py file-to-read')

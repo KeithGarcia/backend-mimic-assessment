@@ -44,12 +44,18 @@ def create_mimic_dict(filename):
                 "who" : ["knows"]
             }
     """
+    # from pathlib import Path
+
+    # data_folder = Path("source_data/text_files/")
+
+    # file_to_open = data_folder / "raw_data.txt"
+
     mimic = {}
     prev = ''
-    with open('alice.txt') as f:
+    with open(filename) as f:
         words = f.read().split()
     for word in words:
-        if not prev in mimic:
+        if prev not in mimic:
             mimic[prev] = [word]
         else:
             mimic[prev].append(word)
@@ -65,21 +71,13 @@ def print_mimic(mimic_dict, start_word):
         - Randomly select a new word from the next-list
         - Repeat this process 200 times
     """
-    _next = start_word
 
     for i in range(200):
-        word = _next
-        print(word + " " + str(i))
-        _next = random.choice(mimic_dict[word])
-        if not _next:
-            _next = mimic_dict[start_word]
-    pass
-
-    # a = ""
-    # if a:
-    #     print(a)
-    # if not a:
-    #     print('false')
+        print(start_word, end=" ")
+        next_list = mimic_dict.get(start_word)
+        if not next_list:
+            next_list = mimic_dict[""]
+        start_word = random.choice(next_list)
 
 # Provided main(), calls mimic_dict() and print_mimic()
 
